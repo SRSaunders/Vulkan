@@ -495,7 +495,7 @@ public:
 			colorAttachments[i] = {
 				.sType = VK_STRUCTURE_TYPE_RENDERING_ATTACHMENT_INFO,
 				.imageView = imageViewList[i],
-				.imageLayout = (i == 0) ? VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL : VK_IMAGE_LAYOUT_RENDERING_LOCAL_READ_KHR,
+				.imageLayout = VK_IMAGE_LAYOUT_RENDERING_LOCAL_READ_KHR,
 				.resolveMode = VK_RESOLVE_MODE_NONE,
 				.loadOp = VK_ATTACHMENT_LOAD_OP_CLEAR,
 				.storeOp = VK_ATTACHMENT_STORE_OP_STORE,
@@ -568,7 +568,7 @@ public:
 
 		vkCmdEndRenderingKHR(cmdBuffer);
 
-		// Update renderingInfo to use current swapchain image as single color attachment for the UI
+		// Update renderingInfo to specify and preserve the current swapchain image as the single color attachment for the UI
 		colorAttachments[0].imageView = swapChain.imageViews[currentImageIndex];
 		colorAttachments[0].loadOp = VK_ATTACHMENT_LOAD_OP_LOAD;
 		renderingInfo.colorAttachmentCount = 1;
